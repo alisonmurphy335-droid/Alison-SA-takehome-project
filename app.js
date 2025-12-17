@@ -52,17 +52,22 @@ app.get('/checkout', function(req, res) {
       // Included in layout view, feel free to assign error
       error = "No item selected"      
       break;
-  }
-  const intent = // ... Fetch or create the PaymentIntent
-  res.render('checkout', { client_secret: intent.client_secret,
-    title: title,
-    amount: amount,
-    error: error
-  });
+  };
+  
+  const intent = await stripe.paymentIntents.create({
+  title: title,
+  amount: amount,
+  currency: 'aud',
+  error: error,
+  automatic_payment_methods: {
+    enabled: true,
+  },
+});
+  res.render('checkout', { client_secret: intent.client_secret });
 });
 
 const options = {
-  clientSecret: '{{CLIENT_SECRET}}',
+  clientSecret: '{{client_secret}}',
   // Fully customizable with appearance API.
   appearance: {/*...*/},
 };
