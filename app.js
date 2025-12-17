@@ -30,6 +30,7 @@ app.get('/', function(req, res) {
  * Checkout route
  */
 app.get('/checkout', function(req, res) {
+  
   // Just hardcoding amounts here to avoid using a database
   const item = req.query.item;
   let title, amount, error;
@@ -52,8 +53,8 @@ app.get('/checkout', function(req, res) {
       error = "No item selected"      
       break;
   }
-
-  res.render('checkout', {
+  const intent = // ... Fetch or create the PaymentIntent
+  res.render('checkout', { client_secret: intent.client_secret,
     title: title,
     amount: amount,
     error: error
@@ -70,6 +71,7 @@ app.get('/success', function(req, res) {
 /**
  * Start server
  */
+
 app.listen(3000, () => {
   console.log('Getting served on port 3000');
 });
