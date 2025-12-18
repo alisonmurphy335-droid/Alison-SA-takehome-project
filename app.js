@@ -5,7 +5,7 @@ require('dotenv').config();
 const stripe = require('stripe');
 
 // Set your live publishable key
-const stripe = Stripe('pk_test_51SfOkr5mk4zFR7Rf2TqOQBGS865miaj17CoVQEtyivdwt83Rw1SB3WQfRnPkRDEPL37TwASrbLzOGnDhCsHsiM3g00N9eiY4DT');
+const stripe = require('stripe')('pk_test_51SfOkr5mk4zFR7Rf2TqOQBGS865miaj17CoVQEtyivdwt83Rw1SB3WQfRnPkRDEPL37TwASrbLzOGnDhCsHsiM3g00N9eiY4DT');
 
 var app = express();
 
@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
 /**
  * Checkout route
  */
-app.get('/checkout', function(req, res) {
+app.get('/checkout', async(req, res) {
   
   // Just hardcoding amounts here to avoid using a database
   const item = req.query.item;
